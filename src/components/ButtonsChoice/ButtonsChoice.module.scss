@@ -15,5 +15,9 @@
         align-items: center;
         margin: 0 20px;
         border-radius: 8px;
+        cursor: pointer;
+        &.selected {
+            background-color: rgb(136, 142, 201);
+        }
     }
 }

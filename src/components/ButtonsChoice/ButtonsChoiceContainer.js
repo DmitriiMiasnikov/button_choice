@@ -6,11 +6,16 @@ import { setUnselected, toggleSelected } from '../../store/buttonsReducer'
 class ButtonsContainerInner extends React.Component {
     componentDidMount() {
         this.props.setUnselected()
+      }
+    componentDidUpdate() {
+        console.log(this.props.selected)
     }
-
+    toggleSelectedFunc = (i) => {
+        this.props.toggleSelected(i)
+    } 
     render() {
         return (
-            <ButtonsChoice {...this.props} />
+            <ButtonsChoice {...this.props} toggleSelectedFunc = {this.toggleSelectedFunc}/>
         )
     }
 }

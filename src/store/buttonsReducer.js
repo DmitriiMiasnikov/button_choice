@@ -13,10 +13,18 @@ const stateDefault = {
 const buttonsReducer = (state = stateDefault, action) => {
     switch (action.type) {
         case (SET_UNSELECTED): {
-            return {...state, selected: state.buttons.map((el, i) => false)}
+            return {...state, selected: state.buttons.map((el, i) => el = false)}
         }
         case (TOGGLE_SELECTED): {
-            return {...state, selected: state.buttons.map((el, i) => i === action.id)}
+            return {...state, selected: state.selected.map((el, i) => {
+                if (i === action.id && el === true) {
+                    return false
+                } else if (i === action.id && el === false) {
+                    return true
+                } else if (i !== action.id) {
+                    return el
+                }
+            })}
         }
         default: break;
     }
