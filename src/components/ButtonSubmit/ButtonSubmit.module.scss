@@ -10,4 +10,15 @@
     justify-content: center;
     align-items: center;
     border-radius: 8px;
+    cursor: pointer;
+    &.disabled {
+        pointer-events: none;
+        background-color: rgb(190, 190, 190);
+        color: grey;
+    }
+    &.wrong {
+        pointer-events: none;
+        background-color: rgb(255, 89, 89);
+        color: rgb(255, 89, 89);
+    }
 }

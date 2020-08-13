@@ -1,14 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ButtonsChoice from './ButtonsChoice';
-import { setUnselected, toggleSelected } from '../../store/buttonsReducer'
+import { setUnselected, toggleSelected, activateButtonSubmit, 
+    toggleWrongButtonSubmit, deactivateButtonSubmit } from '../../store/buttonsReducer'
 
 class ButtonsContainerInner extends React.Component {
     componentDidMount() {
         this.props.setUnselected()
       }
     componentDidUpdate() {
-        console.log(this.props.selected)
+        if (this.props.selected.some(el => el === true)) {
+            this.props.activateButtonSubmit()
+        } else this.props.deactivateButtonSubmit()
     }
     toggleSelectedFunc = (i) => {
         this.props.toggleSelected(i)
@@ -23,11 +26,16 @@ class ButtonsContainerInner extends React.Component {
 const mapStateToProps = (state) => {
     return {
         buttons: state.buttons.buttons,
-        selected: state.buttons.selected
+        selected: state.buttons.selected,
+        buttonSubmitDisabled: state.buttons.buttonSubmitDisabled,
+        buttonSubmitWrong: state.buttons.buttonSubmitWrong
     }
 }
 
 export default connect(mapStateToProps, {
     setUnselected,
-    toggleSelected
+    toggleSelected,
+    activateButtonSubmit,
+    deactivateButtonSubmit,
+    toggleWrongButtonSubmit
 })(ButtonsContainerInner);
