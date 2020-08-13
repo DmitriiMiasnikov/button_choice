@@ -1,0 +1,19 @@
+.buttonsWrapper {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 270px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .button {
+        background-color: grey;
+        width: 120px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 20px;
+        border-radius: 8px;
+    }
+}

@@ -1,0 +1,13 @@
+.hintQuantity {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 350px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background-color: grey;
+    &.hide {
+        opacity: 0;
+        visibility: hidden;
+    }
+}

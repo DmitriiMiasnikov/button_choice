@@ -1,9 +1,11 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux';
 import buttonsReducer from './buttonsReducer';
+import hintsReducer from './hintsReducer';
 import thunkMiddleware from 'redux-thunk';
 
 const reducers = combineReducers({
-    buttons: buttonsReducer
+    buttons: buttonsReducer,
+    hints: hintsReducer
 });
 
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));

@@ -1,0 +1,13 @@
+.buttonSubmit {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 470px;
+    background-color: grey;
+    width: 120px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+}
