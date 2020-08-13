@@ -1,9 +1,11 @@
 const TOGGLE_SELECTED = 'TOGGLE-SELECTED',
 SET_UNSELECTED = 'SET-UNSELECTED',
 CHECK_ANSWER = 'CHECK-ANSWER',
+CHECK_ANSWER_ALL_CHOOSEN = 'CHECK-ANSWER-ALL-CHOOSEN',
 ACTIVATE_BUTTON_SUBMIT = 'ACTIVATE-BUTTON-SUBMIT',
 DEACTIVATE_BUTTON_SUBMIT = 'DEACTIVATE-BUTTON-SUBMIT',
-WRONG_BUTTON_SUBMIT = 'WRONG-BUTTON-SUBMIT';
+WRONG_BUTTON_SUBMIT = 'WRONG-BUTTON-SUBMIT',
+RIGHT_BUTTON_SUBMIT = 'RIGHT-BUTTON-SUBMIT';
 
 const stateDefault = {
     buttons: [
@@ -22,6 +24,8 @@ const stateDefault = {
     selected: null,
     buttonSubmitDisabled: true,
     buttonSubmitWrong: false,
+    allRightVariantsChoosen: false,
+    buttonSubmitRight: false
 }
 const buttonsReducer = (state = stateDefault, action) => {
     switch (action.type) {
@@ -42,6 +46,12 @@ const buttonsReducer = (state = stateDefault, action) => {
         case (CHECK_ANSWER): {
             return {...state, answerIsRight: state.selected.every((el, i) => el === state.answer[i])}
         }
+        case (CHECK_ANSWER_ALL_CHOOSEN): {
+            return {
+                ...state, 
+                allRightVariantsChoosen: state.answer.some((el, i) => el !== state.selected[i] && el === true) && 
+                    state.answer.some((el, i) => el === state.selected[i] && el === true) }
+        }
         case (ACTIVATE_BUTTON_SUBMIT): {
             return {...state, buttonSubmitDisabled: false }
         }
@@ -49,7 +59,10 @@ const buttonsReducer = (state = stateDefault, action) => {
             return {...state, buttonSubmitDisabled: true }
         }
         case (WRONG_BUTTON_SUBMIT): {
-            return {...state, buttonSubmitWrong: state.buttonSubmitWrong ? true : false }
+            return {...state, buttonSubmitWrong: !state.buttonSubmitWrong }
+        }
+        case (RIGHT_BUTTON_SUBMIT): {
+            return {...state, buttonSubmitRight: !state.buttonSubmitRight }
         }
         default: break;
     }
@@ -64,14 +77,20 @@ export const setUnselected = () => {
 export const checkAnswer = () => {
     return { type: CHECK_ANSWER }
 }
+export const checkAnswerAllChoosen = () => {
+    return { type: CHECK_ANSWER_ALL_CHOOSEN }
+}
 export const activateButtonSubmit = () => {
     return { type: ACTIVATE_BUTTON_SUBMIT }
 }
 export const deactivateButtonSubmit = () => {
     return { type: DEACTIVATE_BUTTON_SUBMIT }
 }
-export const toggleWrongButtonSubmit = () => {
+export const wrongButtonSubmit = () => {
     return { type: WRONG_BUTTON_SUBMIT }
+}
+export const congrat = () => {
+    return { type: RIGHT_BUTTON_SUBMIT }
 }
 
 export default buttonsReducer;

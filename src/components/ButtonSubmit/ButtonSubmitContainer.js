@@ -1,20 +1,31 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ButtonSubmit from './ButtonSubmit';
-import { checkAnswer, toggleWrongButtonSubmit } from '../../store/buttonsReducer';
+import { checkAnswer, wrongButtonSubmit, checkAnswerAllChoosen, congrat, setUnselected } from '../../store/buttonsReducer';
 import { showHintWrong, showHintQuantity, hideHints } from './../../store/hintsReducer';
 
 class ButtonSubmitContainerInner extends React.Component {
     componentDidUpdate = () => {
     }
-    checkAnswerFunc = () => {
-        this.props.checkAnswer()
-        console.log(this.props.answerIsRight)
+    checkAnswerFunc = async () => {
+        this.props.checkAnswer();
+        this.props.checkAnswerAllChoosen()
         if (!this.props.answerIsRight) {
             this.props.showHintWrong()
-            this.props.toggleWrongButtonSubmit()
+            this.props.wrongButtonSubmit()
+            if (this.props.allRightVariantsChoosen) {
+                this.props.showHintQuantity()
+            }
+            await new Promise(() => setTimeout(() => {
+                this.props.wrongButtonSubmit()
+            }, 500))
         } else {
             this.props.hideHints()
+            this.props.congrat()
+            await new Promise(() => setTimeout(() => {
+                this.props.congrat()
+                this.props.setUnselected()
+            }, 500))
         }
     }
     render() {
@@ -26,17 +37,23 @@ class ButtonSubmitContainerInner extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
+        answer: state.buttons.answer,
         selected: state.buttons.selected,
         buttonSubmitDisabled: state.buttons.buttonSubmitDisabled,
         buttonSubmitWrong: state.buttons.buttonSubmitWrong,
-        answerIsRight: state.buttons.answerIsRight
+        buttonSubmitRight: state.buttons.buttonSubmitRight,
+        answerIsRight: state.buttons.answerIsRight,
+        allRightVariantsChoosen: state.buttons.allRightVariantsChoosen
     }
 }
 
 export default connect(mapStateToProps, {
     checkAnswer,
+    checkAnswerAllChoosen,
     showHintQuantity,
     showHintWrong,
     hideHints,
-    toggleWrongButtonSubmit
+    wrongButtonSubmit,
+    congrat,
+    setUnselected
 })(ButtonSubmitContainerInner);

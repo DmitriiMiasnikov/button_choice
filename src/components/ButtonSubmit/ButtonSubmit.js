@@ -6,8 +6,9 @@ const ButtonSubmit = (props) => {
     return (
         <div className = {`${styles.buttonSubmit} 
             ${props.buttonSubmitDisabled ? styles.disabled : ''}
-            ${props.buttonSubmitWrong ? styles.wrong : ''}`}
-            onClick = {() => props.checkAnswerFunc()}>Done</div>
+            ${props.buttonSubmitWrong ? styles.wrong : ''}
+            ${props.buttonSubmitRight ? styles.right : ''}`}
+            onClick = { () => props.checkAnswerFunc() }>Done</div>
     )
 }
 export default ButtonSubmit;

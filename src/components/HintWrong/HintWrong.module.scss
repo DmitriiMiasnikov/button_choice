@@ -6,6 +6,7 @@
     padding: 10px 20px;
     border-radius: 8px;
     background-color: grey;
+    transition: .1s visibility, .1s opacity;
     &.hide {
         opacity: 0;
         visibility: hidden;

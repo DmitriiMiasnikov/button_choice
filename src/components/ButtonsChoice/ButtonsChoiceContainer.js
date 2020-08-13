@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ButtonsChoice from './ButtonsChoice';
 import { setUnselected, toggleSelected, activateButtonSubmit, 
-    toggleWrongButtonSubmit, deactivateButtonSubmit } from '../../store/buttonsReducer'
+    wrongButtonSubmit, deactivateButtonSubmit } from '../../store/buttonsReducer'
 
 class ButtonsContainerInner extends React.Component {
     componentDidMount() {
@@ -37,5 +37,5 @@ export default connect(mapStateToProps, {
     toggleSelected,
     activateButtonSubmit,
     deactivateButtonSubmit,
-    toggleWrongButtonSubmit
+    wrongButtonSubmit
 })(ButtonsContainerInner);
