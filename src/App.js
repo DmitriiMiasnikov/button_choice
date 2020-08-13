@@ -1,24 +1,15 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import styles from './App.module.scss';
+import ButtonsChoiceContainer from './components/ButtonsChoiceContainer'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={styles.wrapper}>
+      <div className = {styles.title}>Выберите все уравнения, в которых решением является число 6</div>
+      <div className = {styles.hintQuantity}>Выбраны не все верные варианты</div>
+      <div className = {styles.hintWrong}>Вычисли X</div>
+      <ButtonsChoiceContainer />
+      <div className = {styles.buttonSubmit}>Done</div>
     </div>
   );
 }
