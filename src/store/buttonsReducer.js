@@ -1,11 +1,11 @@
 const TOGGLE_SELECTED = 'TOGGLE-SELECTED',
-SET_UNSELECTED = 'SET-UNSELECTED',
-CHECK_ANSWER = 'CHECK-ANSWER',
-CHECK_ANSWER_ALL_CHOOSEN = 'CHECK-ANSWER-ALL-CHOOSEN',
-ACTIVATE_BUTTON_SUBMIT = 'ACTIVATE-BUTTON-SUBMIT',
-DEACTIVATE_BUTTON_SUBMIT = 'DEACTIVATE-BUTTON-SUBMIT',
-WRONG_BUTTON_SUBMIT = 'WRONG-BUTTON-SUBMIT',
-RIGHT_BUTTON_SUBMIT = 'RIGHT-BUTTON-SUBMIT';
+    SET_UNSELECTED = 'SET-UNSELECTED',
+    CHECK_ANSWER = 'CHECK-ANSWER',
+    CHECK_ANSWER_ALL_CHOOSEN = 'CHECK-ANSWER-ALL-CHOOSEN',
+    ACTIVATE_BUTTON_SUBMIT = 'ACTIVATE-BUTTON-SUBMIT',
+    DEACTIVATE_BUTTON_SUBMIT = 'DEACTIVATE-BUTTON-SUBMIT',
+    WRONG_BUTTON_SUBMIT = 'WRONG-BUTTON-SUBMIT',
+    RIGHT_BUTTON_SUBMIT = 'RIGHT-BUTTON-SUBMIT';
 
 const stateDefault = {
     buttons: [
@@ -23,46 +23,49 @@ const stateDefault = {
     answerIsRight: false,
     selected: null,
     buttonSubmitDisabled: true,
-    buttonSubmitWrong: false,
-    allRightVariantsChoosen: false,
-    buttonSubmitRight: false
+    wrong: false,
+    right: false,
+    allRightVariantsChoosen: false
 }
 const buttonsReducer = (state = stateDefault, action) => {
     switch (action.type) {
         case (SET_UNSELECTED): {
-            return {...state, selected: state.buttons.map((el, i) => el = false)}
+            return { ...state, selected: state.buttons.map((el, i) => el = false) }
         }
         case (TOGGLE_SELECTED): {
-            return {...state, selected: state.selected.map((el, i) => {
-                if (i === action.id && el === true) {
-                    return false
-                } else if (i === action.id && el === false) {
-                    return true
-                } else if (i !== action.id) {
-                    return el
-                }
-            })}
+            return {
+                ...state, selected: state.selected.map((el, i) => {
+                    if (i === action.id && el === true) {
+                        return false
+                    } else if (i === action.id && el === false) {
+                        return true
+                    } else if (i !== action.id) {
+                        return el
+                    }
+                })
+            }
         }
         case (CHECK_ANSWER): {
-            return {...state, answerIsRight: state.selected.every((el, i) => el === state.answer[i])}
+            return { ...state, answerIsRight: state.selected.every((el, i) => el === state.answer[i]) }
         }
         case (CHECK_ANSWER_ALL_CHOOSEN): {
             return {
-                ...state, 
-                allRightVariantsChoosen: state.answer.some((el, i) => el !== state.selected[i] && el === true) && 
-                    state.answer.some((el, i) => el === state.selected[i] && el === true) }
+                ...state,
+                allRightVariantsChoosen: state.answer.some((el, i) => el !== state.selected[i] && el === true) &&
+                    state.answer.some((el, i) => el === state.selected[i] && el === true)
+            }
         }
         case (ACTIVATE_BUTTON_SUBMIT): {
-            return {...state, buttonSubmitDisabled: false }
+            return { ...state, buttonSubmitDisabled: false }
         }
         case (DEACTIVATE_BUTTON_SUBMIT): {
-            return {...state, buttonSubmitDisabled: true }
+            return { ...state, buttonSubmitDisabled: true }
         }
         case (WRONG_BUTTON_SUBMIT): {
-            return {...state, buttonSubmitWrong: !state.buttonSubmitWrong }
+            return { ...state, wrong: !state.wrong }
         }
         case (RIGHT_BUTTON_SUBMIT): {
-            return {...state, buttonSubmitRight: !state.buttonSubmitRight }
+            return { ...state, right: !state.right }
         }
         default: break;
     }

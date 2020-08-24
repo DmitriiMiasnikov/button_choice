@@ -28,7 +28,8 @@ const mapStateToProps = (state) => {
         buttons: state.buttons.buttons,
         selected: state.buttons.selected,
         buttonSubmitDisabled: state.buttons.buttonSubmitDisabled,
-        buttonSubmitWrong: state.buttons.buttonSubmitWrong
+        wrong: state.buttons.wrong,
+        right: state.buttons.right,
     }
 }
 

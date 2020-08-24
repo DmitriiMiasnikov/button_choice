@@ -2,25 +2,29 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ButtonSubmit from './ButtonSubmit';
 import { checkAnswer, wrongButtonSubmit, checkAnswerAllChoosen, congrat, setUnselected } from '../../store/buttonsReducer';
-import { showHintWrong, showHintQuantity, hideHints } from './../../store/hintsReducer';
+import { showHintWrong, showHintQuantity, hideHintWrong, hideHintQuantity } from './../../store/hintsReducer';
 
 class ButtonSubmitContainerInner extends React.Component {
     componentDidUpdate = () => {
     }
     checkAnswerFunc = async () => {
-        this.props.checkAnswer();
-        this.props.checkAnswerAllChoosen()
+        await this.props.checkAnswer();
+        await this.props.checkAnswerAllChoosen()
         if (!this.props.answerIsRight) {
             this.props.showHintWrong()
             this.props.wrongButtonSubmit()
             if (this.props.allRightVariantsChoosen) {
                 this.props.showHintQuantity()
             }
+            if (!this.props.allRightVariantsChoosen) {
+                this.props.hideHintQuantity()
+            }
             await new Promise(() => setTimeout(() => {
                 this.props.wrongButtonSubmit()
             }, 500))
         } else {
-            this.props.hideHints()
+            this.props.hideHintWrong()
+            this.props.hideHintQuantity()
             this.props.congrat()
             await new Promise(() => setTimeout(() => {
                 this.props.congrat()
@@ -40,8 +44,8 @@ const mapStateToProps = (state) => {
         answer: state.buttons.answer,
         selected: state.buttons.selected,
         buttonSubmitDisabled: state.buttons.buttonSubmitDisabled,
-        buttonSubmitWrong: state.buttons.buttonSubmitWrong,
-        buttonSubmitRight: state.buttons.buttonSubmitRight,
+        wrong: state.buttons.wrong,
+        right: state.buttons.right,
         answerIsRight: state.buttons.answerIsRight,
         allRightVariantsChoosen: state.buttons.allRightVariantsChoosen
     }
@@ -52,7 +56,8 @@ export default connect(mapStateToProps, {
     checkAnswerAllChoosen,
     showHintQuantity,
     showHintWrong,
-    hideHints,
+    hideHintWrong,
+    hideHintQuantity,
     wrongButtonSubmit,
     congrat,
     setUnselected

@@ -6,6 +6,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+
     .button {
         background-color: grey;
         width: 120px;
@@ -17,8 +18,19 @@
         border-radius: 8px;
         cursor: pointer;
         transition: .1s background-color;
+
         &.selected {
             background-color: rgb(136, 142, 201);
+
+            &.right {
+                pointer-events: none;
+                background-color: rgb(61, 226, 96);
+            }
+
+            &.wrong {
+                pointer-events: none;
+                background-color: rgb(255, 89, 89);
+            }
         }
     }
 }

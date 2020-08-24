@@ -1,6 +1,7 @@
 const SHOW_HINT_QUANTITY = 'SHOW_HINT_QUANTITY',
 SHOW_HINT_WRONG = 'SHOW_HINT_WRONG',
-HIDE_HINTS = 'HIDE-HINTS';
+HIDE_HINT_QUANTITY = 'HIDE_HINT_QUANTITY',
+HIDE_HINT_WRONG = 'HIDE_HINT_WRONG';
 
 const stateDefault = {
     hintQuantityVisible: false,
@@ -14,8 +15,11 @@ const hintsReducer = (state = stateDefault, action) => {
         case (SHOW_HINT_WRONG): {
             return {...state, hintWrongVisible: true}
         }
-        case (HIDE_HINTS): {
-            return {...state, hintWrongVisible: false, hintQuantityVisible: false}
+        case (HIDE_HINT_WRONG): {
+            return {...state, hintWrongVisible: false}
+        }
+        case (HIDE_HINT_QUANTITY): {
+            return {...state, hintQuantityVisible: false}
         }
         default: break;
     }
@@ -27,8 +31,11 @@ export const showHintQuantity = () => {
 export const showHintWrong = () => {
     return { type: SHOW_HINT_WRONG }
 }
-export const hideHints = () => {
-    return { type: HIDE_HINTS }
+export const hideHintQuantity = () => {
+    return { type: HIDE_HINT_QUANTITY }
+}
+export const hideHintWrong = () => {
+    return { type: HIDE_HINT_WRONG }
 }
 
 export default hintsReducer;
