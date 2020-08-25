@@ -1,16 +1,18 @@
 import React from 'react';
 import styles from './ButtonsChoice.module.scss';
+import classnames from 'classnames';
 
 
 const Buttons = (props) => {
     let buttons = <div></div>;
     if (props.selected) {
         buttons = props.buttons.map((el, i) => {
-            const selected = props.selected[i] ? styles.selected : '';
-            const right = props.right ? styles.right : '';
-            const wrong = props.wrong ? styles.wrong : '';
-            const classes = `${styles.button} ${selected} ${right} ${wrong}`
-            return <div className={classes}
+            return <div className={classnames({
+                [styles.button]: true, 
+                [styles.right]: props.right,
+                [styles.wrong]: props.wrong,
+                [styles.selected]: props.selected[i]
+            })}
                 onClick={() => props.toggleSelectedFunc(i)} key={i}>{el}</div>
         })
     }
